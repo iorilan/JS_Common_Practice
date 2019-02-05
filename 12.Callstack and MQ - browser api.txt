@@ -1,0 +1,51 @@
+实例1
+
+function main(){
+  console.log('A');
+  setTimeout(
+    function display(){ console.log('B'); }
+  ,0);
+	console.log('C');
+}
+main();
+//	Output
+//	A
+//	C
+//  B
+
+
+1.main 函数进入调用栈,console.log(A)进行调用栈
+2.setTimeout函数进入调用栈。
+3.setTimeout函数是browser的api，因此等待浏览器调用。
+4.console.log(A), console.log(C) 执行完毕
+5.setTimeout最后被调用
+
+实例2
+function main(){
+  console.log('A');
+  setTimeout(
+    function exec(){ console.log('B'); }
+  , 0);
+  runWhileLoopForNSeconds(3);
+  console.log('C');
+}
+main();
+function runWhileLoopForNSeconds(sec){
+  let start = Date.now(), now = start;
+  while (now - start < (sec*1000)) {
+    now = Date.now();
+  }
+}
+// Output
+// A
+// C
+// B
+
+1.main 函数进入调用栈,console.log(A)进行调用栈
+2.setTimeout函数进入调用栈。
+3.setTimeout函数是browser的api，因此等待浏览器调用。
+4.runWhileLoopForNSeconds(3)进行调用栈
+5.console.log(A)进行调用栈
+
+运行结果： 
+main函数中的3个函数会依次执行，随后才执行setTimeout函数。

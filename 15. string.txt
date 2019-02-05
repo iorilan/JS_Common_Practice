@@ -1,0 +1,6 @@
+string padding:
+'a'.padStart(5,'A')//AAAAa
+'a'.padEnd(5,'B')//aBBBB
+
+
+

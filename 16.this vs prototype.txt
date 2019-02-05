@@ -1,0 +1,71 @@
+1. this vs prototype
+function Fn() {}
+Fn.prototype.print = function() {
+    console.log("Calling Fn.prototype's print method");
+};
+var obj = new Fn();
+obj.print(); // -> Calling Fn.prototype's print method
+
+vs 
+
+function Fn() {
+    this.print = function() {
+        console.log("Calling the object's print method");
+    };
+}
+var obj = new Fn();
+obj.print(); // -> Calling the object's print method
+
+the performance will be different .2nd version will create copies of print, each one attached to one of the objects.
+
+function A(){
+	this.hello = function(){
+	console.log("hello");
+	}
+}
+var objs = [];
+console.time('x');
+for(let i = 0; i < 2000000;i ++){
+	objs.push(new A());
+}
+console.timeEnd('x');
+//x: 680.94482421875ms
+
+function A(){
+	
+}
+A.prototype.hello = function(){
+	console.log("hello");
+	}
+var objs = [];
+console.time('x');
+for(let i = 0; i < 2000000;i ++){
+	objs.push(new A());
+}
+console.timeEnd('x');
+x: 487.61279296875ms
+
+
+2. __proto__ and new 
+function f1(){}
+f1.prototype.test = function(){console.log("hello");}
+
+var f2 = new f1();
+console.log(f2.__proto__);//f2.__proto__
+console.log(f2.__proto__.__proto__);//f1.__proto__
+console.log(f2.__proto__.__proto__.__proto__);//null
+
+3. {} and Object.create
+o = {};
+// is equivalent to:
+o = Object.create(Object.prototype);
+
+function Constructor() {}
+o = new Constructor();
+// is equivalent to:
+o = Object.create(Constructor.prototype);
+
+4. debug obj properties
+function ShowProperties( b ){
+  for( var i in b ){  console.log( i + ": " + b[i] + "\n" )  }
+}

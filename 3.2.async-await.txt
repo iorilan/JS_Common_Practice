@@ -1,0 +1,77 @@
+1. sample load avatar
+
+async function showAvatar() {
+
+  // read our JSON
+  let response = await fetch('/article/promise-chaining/user.json');
+  let user = await response.json();
+
+  // read github user
+  let githubResponse = await fetch(`https://api.github.com/users/${user.name}`);
+  let githubUser = await githubResponse.json();
+
+  // show the avatar
+  let img = document.createElement('img');
+  img.src = githubUser.avatar_url;
+  img.className = "promise-avatar-example";
+  document.body.append(img);
+
+  // wait 3 seconds
+  await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+
+  img.remove();
+
+  return githubUser;
+}
+
+showAvatar();
+
+2.
+async function f() {
+  await Promise.reject(new Error("Whoops!"));
+}
+
+is same as :
+async function f() {
+  throw new Error("Whoops!");
+}
+
+
+3. load json using http get
+function loadJson(url) {
+  return fetch(url)
+    .then(response => {
+      if (response.status == 200) {
+        return response.json();
+      } else {
+        throw new Error(response.status);
+      }
+    })
+}
+
+loadJson('no-such-user.json') // (3)
+  .catch(alert); // Error: 404
+  
+  
+4. http post
+postSomething = async () => {
+const location = window.location.hostname;
+const settings = {
+	method: 'POST',
+	headers: {
+		Accept: 'application/json',
+		'Content-Type': 'application/json',
+	}
+};
+
+const data = await fetch(`http://${location}:8080/api/something/`, settings)
+	.then(response => response.json())
+	.then(json => {
+		return json;
+	})
+	.catch(e => {
+		return e
+	});
+
+return data;
+}

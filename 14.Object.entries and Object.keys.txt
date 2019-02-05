@@ -1,0 +1,31 @@
+array.includes:
+
+var arr = [1,2,3,4,5]
+arr.indexOf(3) >=0 //true
+equals
+arr.includes(3) //true
+
+
+Object.values:
+var obj = {a:1,b:"2",c:3.0}
+console.log(Object.values(obj));//[1,"2",3.0]
+
+using Object.entries for reflection:
+var obj = {a:1,b:"2",c:3.0}
+
+using Object.keys :
+Object.keys(obj).forEach(k=>{console.log(`k:${k} v:${obj[k]}`)})
+using Object.entries:
+for(let [k,v] of Object.entries(obj)){console.log(`k: ${k} v:${v}`);}
+
+populate values into map:
+1. Object.keys
+var m = new Map();
+Object.keys(obj).forEach(k=>{m.set(k, obj[k]);});
+console.log(m); //{a=>1,b=>"2",c=>3}
+
+2. Object.entries
+var m2 = new Map(Object.entries(obj));
+console.log(m2)// {a=>1, b=>"2", c=>3}
+
+

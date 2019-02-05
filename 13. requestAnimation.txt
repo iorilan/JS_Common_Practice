@@ -1,0 +1,19 @@
+var globalID;
+
+function repeatOften() {
+  $("<div />").appendTo("body");
+  globalID = requestAnimationFrame(repeatOften);
+}
+
+$("#start").on("click", function() {
+  globalID = requestAnimationFrame(repeatOften);
+});
+
+$("#stop").on("click", function() {
+  cancelAnimationFrame(globalID);
+});
+
+why :
+1.The browser can optimize it, so animations will be smoother
+2.Animations in inactive tabs will stop, allowing the CPU to chill
+3.More battery-friendly

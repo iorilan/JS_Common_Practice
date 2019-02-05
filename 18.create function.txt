@@ -1,0 +1,25 @@
+1. bind value into 'this'
+const area = function() {
+    return this.width * this.height;
+};
+ 
+const boundArea = area.bind( { width: 2, height: 3 } );
+boundArea();
+
+2. format currency
+const formatCurrency = function( 
+    currencySymbol,
+    decimalSeparator  ) {
+    return function( value ) {
+        const wholePart = Math.trunc( value / 100 );
+        let fractionalPart = value % 100;
+        if ( fractionalPart < 10 ) {
+            fractionalPart = '0' + fractionalPart;
+        }
+        return `${currencySymbol}${wholePart}${decimalSeparator}${fractionalPart}`;
+    }
+}
+
+getLabel = formatCurrency( '$', '.' );
+getLabel(199)
+getLabel(3005)

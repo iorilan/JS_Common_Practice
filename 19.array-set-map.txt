@@ -1,0 +1,122 @@
+array :
+var arr = [{id: 1, name: "one"}, {id: 2, name: "two" }]
+array.find(object => object.id === 2); // {id:2, name:"two"}
+
+-sorting 
+const arr = [ "sex", "age", "job"];
+arr.sort(); //returns ["age", "job", "sex"]
+// array of numbers
+const arr = [ 30, 4, 29 , 19];
+arr.sort((a, b) => a-b); // returns [4, 19, 29, 30]
+// array of number strings
+const arr = [ "30", "4", "29" , "19" ];
+arr.sort((a, b) => a-b); // returns ["4", "19", "29", "30"]
+// array of mixed numerics
+const arr = [ 30, "4", 29 , "19" ];
+arr.sort((a, b) => a-b); // returns ["4", "19", 29, 30]
+// array of non-ASCII strings and also strings
+const arr = ['réservé', 'cliché', 'adieu'];
+arr.sort((a, b) => a.localeCompare(b)); // returns is ['adieu', 'cliché','réservé']
+// array of objects
+const arr = [
+  { name: 'Sharpe', value: 37 },
+  { name: 'And', value: 45 },
+  { name: 'The', value: -12 }
+];
+// sort by name string
+arr.sort((a,b) => a['name'].localeCompare(b['name']));
+// sort by value number
+arr.sort((a,b) => a['value']-b['value']);
+
+-include
+const arr = [1, 2, 3];
+arr.includes(1); // returns true
+
+
+-remove duplicate in sequence
+// considering a linear array Set gives us the answer we need.
+const arr = [1, 2, 2, 4, 5, 5];
+[...new Set(arr)]; // returns [1, 2, 4, 5]
+
+// however set doesn't remove duplicates from array of objects
+const arr = [{a:1},{b:2},{a:1}];
+[...new Set(arr)]; // returns [{a:1},{b:2},{a:1}]
+
+// hence we can use ES6 filter and map functions to achieve the same
+arr.filter((obj, index) => { 
+  return arr.map(obj => obj['a']).indexOf(obj['a']) === index;    
+}); // removes duplicate based on the key 'a'
+
+//object not allow to store duplicate key 
+const obj = { b: "one", a: "two", a: "three" };
+console.log(obj); // returns {b: "one", a: "three"}
+
+-remove element 
+const arr = [ 'a', 'b', 'c' ];
+arr.filter(e => e !== 'c'); // returns [ 'a', 'b' ] removing 'c'
+or 
+const obj = { b: "one", a: "two" };
+delete obj.a; // deletes a and returns true
+//you may also use splice for the same 
+
+-length
+['1', '2', '3'].length // returns 3
+Object.keys({ b: 'one', a: 'two', c: 'three' }).length // returns 3
+
+[set]
+const mySet = new Set(['1', '2', '3']);
+[...mySet].indexOf('2') // returns 1
+const mySet2 = new Set([{1: 'one'}, {2: 'two'}, {3: 'three'}]);
+[...mySet2].find(object => object[2] === 'two'); // returns {2: 'two'}
+
+-sort
+const set = new Set(['b', 'a', 'c']);
+[...set].sort(); // returns ['a', 'b', 'c'] which is an array
+equals :
+const set = new Set(['b', 'a', 'c']);
+const sortedSet = new Set([...set.entries()].map((entry) => entry[0]).sort());
+
+-include :
+set.has(4); // returns true
+set.has('4'); // returns false because of mismatch in type
+
+-remove duplicate
+const set = new Set([1, 2, 2, 4, 5, 5]);
+console.log(set); // returns Set {1, 2, 4, 5}
+
+// array of objects set allow duplicate keys 
+const set = new Set([{a:1},{b:2},{a:1}]);
+console.log(set); // returns Set {{a:1},{b:2},{a:1}} with duplicate 
+
+-remove element 
+const set = new Set([1, 2, 4, 5]);
+set.delete(4); // deletes 4 and returns true
+
+-length
+new Set([{a:1},{b:2},{a:1}]).size // returns 3
+
+
+[map]
+var map = new Map([[ 1, 'one' ],[ 2, 'two' ]]);
+map.get(1) // returns 'one'
+
+-sort:
+const map = new Map([["c", 'three'],["a", 'one'], ["b", 'two']]);
+const sortedMap = new Map([...map.entries()].sort()) // returns sorted Map(3) {"a" => "one", "b" => "three", "c" => "two"}
+
+-include:
+map.has('a'); // returns true
+map.has(3); // returns true
+map.has('3'); // returns false because types don't match
+
+-duplicate 
+//map not allow duplicate keys 
+const map = new Map([[3, 'three'], [2, 'two'], [2, 'four']]);
+console.log(map); // returns {3 => "three", 2 => "four"} 
+
+-remove element 
+const map = new Map([[3, 'three'], [2, 'two']);
+map.delete(3); // deletes [3, 'three'] and returns true.
+
+-length
+new Map([[3, 'three'],['a', 'one'], ['b', 'two']]).size // returns 3
